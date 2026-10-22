@@ -37,19 +37,57 @@ def discretize(state):
     # write a function for that
 
     for i in range(len(state)):
+
         low,high = STATE_BOUNDS[i]
+        value = state[i]
+
+        if value < low:
+            value = low
+        elif value > high:
+            value = high
+        
         # now scale this value state(i) to put it inside the bound of the provided bound
         available_bins = N_BINS[i]
         # then find the ratio using which which we will put it inside the bin
 
-        ratio = (state[i] - low)/(high - low)
+        ratio = (value - low)/(high - low)
         # scale this ratio by the avialable_bins
 
-        scaled_ratio = available_bins * ratio
-        bins.append(int(scaled_ratio))
+        if ratio == 1:
+            bins.append(available_bins-1)
+
+        else:
+            scaled_ratio = available_bins * ratio
+            bins.append(int(scaled_ratio))
+    return bins
 
 
-print(int(5.6))
+# check this function using init
+
+if __name__ == "__main__":
+
+    state = [2,3,0,3]
+    created_bins = discretize(state)
+    print(created_bins)
+
+    # in the last push the the values where not clipped and also we can use some predefine cases to test if the function actually works
+    # we can use assert in the line which will stop our code if obvious codes are not working
+    # today only this part we will do in this repo
+
+    # test cases for which we know the answer
+    state_1 = [2.4,3.0,0.25,3.5] # answer will be - [5,5,11,11]
+    print('test_Case_1 [5, 5, 11, 11]',discretize(state_1))
+    state_2 = [-2.4,-3.0,-0.25,-3.5]# answer will be - [0, 0, 0, 0]
+    print("test_case_2 [0, 0, 0, 0]",discretize(state_2))
+    state_3 = [2.3,2.9,0.24,3.4] # check of previous error [5, 5, 11, 11]
+    print("test_case_ 3 [5, 5, 11, 11]",discretize(state_3))
+    # found the problem now debug it
+    # fixed now make clip the values in range using max and min
+    # test case for max and min
+    state_4 = [-2.5,-3.1,-0.26,3.5] # [0, 0, 0, 11]
+    print("out_of_bound_test_case [0, 0, 0, 11]",discretize(state_4))
+
+    
     
 
     
