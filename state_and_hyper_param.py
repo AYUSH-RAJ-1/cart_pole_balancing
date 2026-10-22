@@ -59,7 +59,8 @@ def discretize(state):
         else:
             scaled_ratio = available_bins * ratio
             bins.append(int(scaled_ratio))
-    return bins
+    return tuple(bins) 
+    assert discretize([-2.4,0,0,0])[0] == 0
 
 
 # check this function using init
