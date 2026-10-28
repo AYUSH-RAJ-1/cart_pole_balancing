@@ -18,3 +18,17 @@ data/
 
 # Secrets
 .env
+
+try.py
+
+cartpole_qtable.npy
+
+1.py
+
+dsa.py
+
+state_and_hyper_param.py
+
+env_and_action.py
+
+cartpole_learning_curve.png
